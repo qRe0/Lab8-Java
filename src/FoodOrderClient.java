@@ -64,5 +64,3 @@ public class FoodOrderClient {
         return scanner.nextLine();
     }
 }
-
-//

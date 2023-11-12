@@ -24,7 +24,6 @@ public class FoodOrderServer {
         menu.add(new Dish("11. Куриные крылышки", 8.99));
         menu.add(new Dish("12. Куриные наггетсы", 7.99));
         menu.add(new Dish("13. Паста Болоньезе", 7.99));
-        // Добавьте другие блюда
     }
 
     public static void main(String[] args) {
@@ -66,15 +65,15 @@ public class FoodOrderServer {
                 System.out.println("Получен заказ от клиента:");
                 System.out.println("Адрес доставки: " + order.getDeliveryAddress());
                 System.out.println("Список блюд:");
-                System.out.println("Общая сумма заказа: $" + order.getTotalPrice());
 
                 for (Dish dish : order.getDishes()) {
                     System.out.println(dish.getName() + " - $" + dish.getPrice());
                 }
 
-                // Отправка подтверждения клиенту
-                out.writeObject("Ваш заказ принят и будет доставлен по указанному адресу.");
                 System.out.println("Общая сумма заказа: $" + order.getTotalPrice());
+
+                // Отправка подтверждения клиенту
+                out.writeObject("Ваш заказ на сумму $" + order.getTotalPrice() + " принят и будет доставлен по указанному адресу.");
 
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
@@ -82,5 +81,3 @@ public class FoodOrderServer {
         }
     }
 }
-
-//

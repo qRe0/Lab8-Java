@@ -27,5 +27,3 @@ public class Order implements Serializable {
         return deliveryAddress;
     }
 }
-
-//

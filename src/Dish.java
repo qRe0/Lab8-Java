@@ -18,5 +18,3 @@ public class Dish implements Serializable {
         return price;
     }
 }
-
-//
