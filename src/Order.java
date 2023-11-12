@@ -11,6 +11,14 @@ public class Order implements Serializable {
         this.deliveryAddress = deliveryAddress;
     }
 
+    public double getTotalPrice() {
+        double totalPrice = 0.0;
+        for (Dish dish : dishes) {
+            totalPrice += dish.getPrice();
+        }
+        return totalPrice;
+    }
+
     public List<Dish> getDishes() {
         return dishes;
     }

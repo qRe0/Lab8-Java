@@ -66,15 +66,15 @@ public class FoodOrderServer {
                 System.out.println("Получен заказ от клиента:");
                 System.out.println("Адрес доставки: " + order.getDeliveryAddress());
                 System.out.println("Список блюд:");
+                System.out.println("Общая сумма заказа: $" + order.getTotalPrice());
 
                 for (Dish dish : order.getDishes()) {
                     System.out.println(dish.getName() + " - $" + dish.getPrice());
                 }
 
-                // Обработка заказа (может потребоваться вызов сервиса доставки и т.д.)
-
                 // Отправка подтверждения клиенту
                 out.writeObject("Ваш заказ принят и будет доставлен по указанному адресу.");
+                System.out.println("Общая сумма заказа: $" + order.getTotalPrice());
 
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
