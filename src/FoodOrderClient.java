@@ -2,7 +2,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class FoodOrderClient {
     public static void main(String[] args) {
@@ -19,9 +21,11 @@ public class FoodOrderClient {
                 System.out.println(dish.getName() + " - $" + dish.getPrice());
             }
 
-            // Создание заказа (здесь нужно реализовать ввод с клавиатуры или другой пользовательский интерфейс)
-            List<Dish> orderItems = List.of(menu.get(0), menu.get(1)); // Пример заказа с первыми двумя блюдами
-            Order order = new Order(orderItems, "Улица, дом");
+            // Создание заказа
+            List<Dish> orderItems = getOrderFromUser(menu);
+            String deliveryAddress = getDeliveryAddressFromUser();
+
+            Order order = new Order(orderItems, deliveryAddress);
 
             // Отправка заказа серверу
             out.writeObject(order);
@@ -33,5 +37,29 @@ public class FoodOrderClient {
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    private static List<Dish> getOrderFromUser(List<Dish> menu) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Введите номера блюд из меню (через пробел):");
+        String input = scanner.nextLine();
+
+        String[] dishNumbers = input.split(" ");
+        List<Dish> orderItems = new ArrayList<>();
+
+        for (String number : dishNumbers) {
+            int index = Integer.parseInt(number) - 1;
+            if (index >= 0 && index < menu.size()) {
+                orderItems.add(menu.get(index));
+            }
+        }
+
+        return orderItems;
+    }
+
+    private static String getDeliveryAddressFromUser() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Введите адрес доставки:");
+        return scanner.nextLine();
     }
 }
