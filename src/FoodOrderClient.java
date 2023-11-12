@@ -9,6 +9,8 @@ import java.util.Scanner;
 public class FoodOrderClient {
     public static void main(String[] args) {
         try (
+                //#TODO: host - ip адрес сервера (смотреть в cmd через ipconfig)
+
                 Socket socket = new Socket("192.168.0.107", 12345);
                 ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
                 ObjectInputStream in = new ObjectInputStream(socket.getInputStream())
