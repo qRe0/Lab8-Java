@@ -20,6 +20,14 @@ public class FoodOrderServer extends UnicastRemoteObject implements FoodOrderSer
 
     public String placeOrder(Order order) throws RemoteException {
         // Логика обработки заказа
+        System.out.println("Клиент отправил заказ:");
+        System.out.println("Адрес доставки: " + order.getDeliveryAddress());
+        System.out.println("Список блюд в заказе:");
+        for (Dish dish : order.getDishes()) {
+            System.out.println(dish.getName() + " - $" + dish.getPrice());
+        }
+        System.out.println("Общая сумма заказа: $" + order.getTotalPrice());
+
         return "Ваш заказ на сумму $" + order.getTotalPrice() + " принят и будет доставлен по указанному адресу.";
     }
 
@@ -45,10 +53,15 @@ public class FoodOrderServer extends UnicastRemoteObject implements FoodOrderSer
             FoodOrderServer foodOrderServer = new FoodOrderServer(menu);
 
             // Регистрация удаленного объекта в RMI Registry
-            Registry registry = LocateRegistry.createRegistry(2411);
+            Registry registry = LocateRegistry.createRegistry(1099);
             registry.rebind("FoodOrderService", foodOrderServer);
 
             System.out.println("Сервер запущен...");
+
+            while (true) {
+                Thread.sleep(1000); // Пауза для предотвращения закрытия сервера
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
