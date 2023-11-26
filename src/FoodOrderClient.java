@@ -1,21 +1,18 @@
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.Socket;
-import java.util.ArrayList;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class FoodOrderClient {
     public static void main(String[] args) {
-        try (
-                //#TODO: host - ip адрес сервера (смотреть в cmd через ipconfig)
-                Socket socket = new Socket("192.168.0.107", 12345);
-                ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
-                ObjectInputStream in = new ObjectInputStream(socket.getInputStream())
-        ) {
+        try {
+            // Получение удаленного объекта из RMI Registry
+            Registry registry = LocateRegistry.getRegistry("localhost", 1099);
+            FoodOrderService foodOrderService = (FoodOrderService) registry.lookup("FoodOrderService");
+
             // Получение меню от сервера
-            List<Dish> menu = (List<Dish>) in.readObject();
+            List<Dish> menu = foodOrderService.getMenu();
             System.out.println("Меню блюд:");
 
             for (Dish dish : menu) {
@@ -29,13 +26,10 @@ public class FoodOrderClient {
             Order order = new Order(orderItems, deliveryAddress);
 
             // Отправка заказа серверу
-            out.writeObject(order);
-
-            // Получение подтверждения от сервера
-            String confirmation = (String) in.readObject();
+            String confirmation = foodOrderService.placeOrder(order);
             System.out.println("Подтверждение от сервера: " + confirmation);
 
-        } catch (IOException | ClassNotFoundException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
