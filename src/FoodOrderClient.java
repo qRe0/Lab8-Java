@@ -8,7 +8,7 @@ public class FoodOrderClient {
     public static void main(String[] args) {
         try {
             // Получение удаленного объекта из RMI Registry
-            Registry registry = LocateRegistry.getRegistry("192.168.0.107", 1099);
+            Registry registry = LocateRegistry.getRegistry("192.168.0.107", 28104);
             FoodOrderService foodOrderService = (FoodOrderService) registry.lookup("FoodOrderService");
 
             // Получение меню от сервера
@@ -59,18 +59,3 @@ public class FoodOrderClient {
     }
 }
 
-//    // Создание списка блюд
-//    List<Dish> menu = new ArrayList<>();
-//            menu.add(new Dish("1. Пицца", 10.99));
-//                    menu.add(new Dish("2. Паста", 8.99));
-//                    menu.add(new Dish("3. Салат", 5.99));
-//                    menu.add(new Dish("4. Суп", 3.99));
-//                    menu.add(new Dish("5. Сэндвич", 4.99));
-//                    menu.add(new Dish("6. Картофель фри", 2.99));
-//                    menu.add(new Dish("7. Картофельное пюре", 2.99));
-//                    menu.add(new Dish("8. Картофель по-деревенски", 2.99));
-//                    menu.add(new Dish("9. Стейк", 17.99));
-//                    menu.add(new Dish("10. Курица на гриле", 12.99));
-//                    menu.add(new Dish("11. Куриные крылышки", 8.99));
-//                    menu.add(new Dish("12. Куриные наггетсы", 7.99));
-//                    menu.add(new Dish("13. Паста Болоньезе", 7.99));

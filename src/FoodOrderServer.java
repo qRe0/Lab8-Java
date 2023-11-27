@@ -53,7 +53,7 @@ public class FoodOrderServer extends UnicastRemoteObject implements FoodOrderSer
             FoodOrderServer foodOrderServer = new FoodOrderServer(menu);
 
             // Регистрация удаленного объекта в RMI Registry
-            Registry registry = LocateRegistry.createRegistry(1099);
+            Registry registry = LocateRegistry.createRegistry(28104);
             registry.rebind("FoodOrderService", foodOrderServer);
 
             System.out.println("Сервер запущен...");
